@@ -1,25 +1,40 @@
-<link rel="stylesheet" 
-  href="https://cdn.jsdelivr.net/npm/places.js@1.19.0/dist/cdn/places.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Réservation Uber – Autocomplete</title>
+  <!-- CSS Algolia Places -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/places.js@1.19.0/dist/cdn/places.min.css"/>
+</head>
+<body style="font-family:sans-serif;padding:2em;max-width:400px;margin:auto;">
 
-<input id="pickup" placeholder="Adresse de prise en charge" />
-<input id="dropoff" placeholder="Adresse de destination" />
-<button id="next">Suivant →</button>
+  <h2>Adresse de prise en charge</h2>
+  <input id="pickup" placeholder="Commencez à taper…"/>
 
-<script>
-  const placesAutocomplete = places({
-    appId:   'plGXXXXXXX',    // ton appId demo suffit souvent
-    apiKey:  'aaaaaaaaabbbbbbbbbccccc', 
-    container: document.querySelector('#pickup')
-  });
-  const placesAutocomplete2 = places({
-    container: document.querySelector('#dropoff')
-  });
+  <h2>Adresse de destination</h2>
+  <input id="dropoff" placeholder="Commencez à taper…"/>
 
-  document.getElementById('next').onclick = () => {
-    const p = placesAutocomplete.getVal();
-    const d = placesAutocomplete2.getVal();
-    window.location = 
-      `https://tally.so/r/VOTRE_FORM_ID?pick_up=${encodeURIComponent(p)}&drop_off=${encodeURIComponent(d)}`;
-  };
-</script>
+  <button id="next" style="margin-top:1em;padding:0.5em;width:100%;">
+    Continuer vers le formulaire →
+  </button>
+
+  <!-- JS Algolia Places -->
+  <script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+  <script>
+    // Initialise les deux champs autocomplete
+    const ac1 = places({ container: document.querySelector('#pickup') });
+    const ac2 = places({ container: document.querySelector('#dropoff') });
+
+    document.getElementById('next').onclick = () => {
+      const p = ac1.getVal(), d = ac2.getVal();
+      if (!p || !d) return alert('Veuillez sélectionner les deux adresses.');
+      const base = 'https://tally.so/r/3jp44a';
+      const params = `?pick_up=${encodeURIComponent(p)}&drop_off=${encodeURIComponent(d)}`;
+      window.location.href = base + params;
+    };
+  </script>
+</body>
+</html>
