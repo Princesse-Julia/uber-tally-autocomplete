@@ -1,0 +1,25 @@
+<link rel="stylesheet" 
+  href="https://cdn.jsdelivr.net/npm/places.js@1.19.0/dist/cdn/places.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+
+<input id="pickup" placeholder="Adresse de prise en charge" />
+<input id="dropoff" placeholder="Adresse de destination" />
+<button id="next">Suivant →</button>
+
+<script>
+  const placesAutocomplete = places({
+    appId:   'plGXXXXXXX',    // ton appId demo suffit souvent
+    apiKey:  'aaaaaaaaabbbbbbbbbccccc', 
+    container: document.querySelector('#pickup')
+  });
+  const placesAutocomplete2 = places({
+    container: document.querySelector('#dropoff')
+  });
+
+  document.getElementById('next').onclick = () => {
+    const p = placesAutocomplete.getVal();
+    const d = placesAutocomplete2.getVal();
+    window.location = 
+      `https://tally.so/r/VOTRE_FORM_ID?pick_up=${encodeURIComponent(p)}&drop_off=${encodeURIComponent(d)}`;
+  };
+</script>
