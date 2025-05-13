@@ -1,3 +1,8 @@
+index.html
+logo.png
+Lustria-Regular.ttf
+TanPearl.ttf
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,71 +26,78 @@
       font-style: normal;
       font-display: swap;
     }
-  </style>
-
-  <!-- 3) Algolia Places CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/places.js@1.19.0/dist/cdn/places.min.css"/>
-
   <style>
-    body {
-      margin: 0;
-      padding: 2em;
-      background: #151011;
-      color: #FFFFFF;
-      font-family: 'Lustria', serif;               /* texte en Lustria */
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+  /* Déclaration des deux polices en TTF */
+  @font-face {
+    font-family: 'Lustria';
+    src: url('Lustria-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Tan Pearl';
+    src: url('TanPearl.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-    /* titre en Tan Pearl */
-    h2 {
-      font-family: 'Tan Pearl', serif;
-      margin-top: 1.5em;
-      font-size: 1.3em;
-      color: #FFFFFF;
-    }
+  /* Styles globaux */
+  body {
+    margin: 0;
+    padding: 2em;
+    background: #151011;
+    color: #FFFFFF;
+    font-family: 'Lustria', serif;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h2 {
+    font-family: 'Tan Pearl', serif;
+    margin-top: 1.5em;
+    font-size: 1.3em;
+    color: #FFFFFF;
+  }
+  .logo {
+    display: block;
+    margin: 0 auto 2em;
+    max-width: 200px;
+  }
+  input {
+    width: 100%;
+    padding: 0.6em;
+    font-size: 1em;
+    background: transparent;
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    font-family: 'Lustria', serif;
+  }
+  input::placeholder {
+    color: #CCCCCC;
+    font-family: 'Lustria', serif;
+  }
+  button {
+    width: 100%;
+    padding: 0.8em;
+    margin-top: 1.5em;
+    font-size: 1em;
+    background: #FFFFFF;
+    color: #151011;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Lustria', serif;
+  }
+  button:hover {
+    opacity: 0.9;
+  }
+</style>
 
-    .logo {
-      display: block;
-      margin: 0 auto 2em;
-      max-width: 200px;
-    }
 
-    input {
-      width: 100%;
-      padding: 0.6em;
-      font-size: 1em;
-      background: transparent;
-      border: 1px solid #FFFFFF;
-      border-radius: 4px;
-      color: #FFFFFF;
-      box-sizing: border-box;
-      font-family: 'Lustria', serif;               /* placeholders aussi */
-    }
-    input::placeholder {
-      color: #CCCCCC;
-      font-family: 'Lustria', serif;
-    }
-
-    button {
-      width: 100%;
-      padding: 0.8em;
-      margin-top: 1.5em;
-      font-size: 1em;
-      background: #FFFFFF;
-      color: #151011;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: 'Lustria', serif;
-    }
-    button:hover {
-      opacity: 0.9;
-    }
-  </style>
 </head>
 <body>
 
