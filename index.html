@@ -1,37 +1,132 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Réservation Uber – Autocomplete</title>
-  <!-- CSS Algolia Places -->
+
+  <!-- 1) Charger Lustria depuis Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lustria&display=swap"
+    rel="stylesheet"/>
+
+  <!-- 2) Déclarer ta police Tan Pearl en local -->
+  <style>
+    @font-face {
+      font-family: 'Tan Pearl';
+      /* place ici tes fichiers .woff2/.woff dans le même dossier */
+      src: url('TanPearl.woff2') format('woff2'),
+           url('TanPearl.woff')  format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- 3) Algolia Places CSS -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/places.js@1.19.0/dist/cdn/places.min.css"/>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 2em;
+      background: #151011;
+      color: #FFFFFF;
+      font-family: 'Lustria', serif;               /* texte en Lustria */
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* titre en Tan Pearl */
+    h2 {
+      font-family: 'Tan Pearl', serif;
+      margin-top: 1.5em;
+      font-size: 1.3em;
+      color: #FFFFFF;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 2em;
+      max-width: 200px;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6em;
+      font-size: 1em;
+      background: transparent;
+      border: 1px solid #FFFFFF;
+      border-radius: 4px;
+      color: #FFFFFF;
+      box-sizing: border-box;
+      font-family: 'Lustria', serif;               /* placeholders aussi */
+    }
+    input::placeholder {
+      color: #CCCCCC;
+      font-family: 'Lustria', serif;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8em;
+      margin-top: 1.5em;
+      font-size: 1em;
+      background: #FFFFFF;
+      color: #151011;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Lustria', serif;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
 </head>
-<body style="font-family:sans-serif;padding:2em;max-width:400px;margin:auto;">
+<body>
+
+  <img src="logo.png" alt="TIRA VTC" class="logo"/>
 
   <h2>Adresse de prise en charge</h2>
-  <input id="pickup" placeholder="Commencez à taper…"/>
+  <input id="pickup" placeholder="Commencez à taper…" />
 
   <h2>Adresse de destination</h2>
-  <input id="dropoff" placeholder="Commencez à taper…"/>
+  <input id="dropoff" placeholder="Commencez à taper…" />
 
-  <button id="next" style="margin-top:1em;padding:0.5em;width:100%;">
-    Continuer vers le formulaire →
-  </button>
+  <button id="next">Continuer vers le formulaire →</button>
 
-  <!-- JS Algolia Places -->
   <script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
   <script>
-    // Initialise les deux champs autocomplete
-    const ac1 = places({ container: document.querySelector('#pickup') });
-    const ac2 = places({ container: document.querySelector('#dropoff') });
+    const APP_ID  = 'PO5E8993LI';
+    const API_KEY = '76f71fc5be8e3b4d10e5a7c3500d1d2f';
+
+    const ac1 = places({
+      appId: APP_ID,
+      apiKey: API_KEY,
+      container: document.querySelector('#pickup'),
+      type: 'address',
+      language: 'fr',
+      countries: ['fr']
+    });
+    const ac2 = places({
+      appId: APP_ID,
+      apiKey: API_KEY,
+      container: document.querySelector('#dropoff'),
+      type: 'address',
+      language: 'fr',
+      countries: ['fr']
+    });
 
     document.getElementById('next').onclick = () => {
       const p = ac1.getVal(), d = ac2.getVal();
-      if (!p || !d) return alert('Veuillez sélectionner les deux adresses.');
-      const base = 'https://tally.so/r/3jp44a';
+      if (!p || !d) {
+        return alert('Veuillez sélectionner les deux adresses.');
+      }
+      const base   = 'https://tally.so/r/3jp44a';
       const params = `?pick_up=${encodeURIComponent(p)}&drop_off=${encodeURIComponent(d)}`;
       window.location.href = base + params;
     };
