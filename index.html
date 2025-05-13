@@ -5,99 +5,98 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Réservation Uber – Autocomplete</title>
 
-  <!-- 1) Charger Lustria depuis Google Fonts -->
+  <!-- CSS d’Algolia Places -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Lustria&display=swap"
-    rel="stylesheet"/>
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/places.js@1.19.0/dist/cdn/places.min.css"/>
 
-  <!-- 2) Déclarer ta police Tan Pearl en local -->
   <style>
+    /* 1. Vos @font-face ici si vous l'utilisez */
+    /* Exemple sans @font-face (puisque vous avez les .ttf locaux) */
     @font-face {
-      font-family: 'Tan Pearl';
-      /* place ici tes fichiers .fft2/.ttf dans le même dossier */
-      src: url('TanPearl.ttf2') format('ttf2'),
-           url('TanPearl.ttf')  format('ttf');
+      font-family: 'Lustria';
+      src: url('Lustria-Regular.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
       font-display: swap;
     }
-  <style>
-  /* Déclaration des deux polices en TTF */
-  @font-face {
-    font-family: 'Lustria';
-    src: url('Lustria-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Tan Pearl';
-    src: url('TanPearl.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+    @font-face {
+      font-family: 'Tan Pearl';
+      src: url('TanPearl.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
 
-  /* Styles globaux */
-  body {
-    margin: 0;
-    padding: 2em;
-    background: #151011;
-    color: #FFFFFF;
-    font-family: 'Lustria', serif;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  h2 {
-    font-family: 'Tan Pearl', serif;
-    margin-top: 1.5em;
-    font-size: 1.3em;
-    color: #FFFFFF;
-  }
-  .logo {
-    display: block;
-    margin: 0 auto 2em;
-    max-width: 200px;
-  }
-  input {
-    width: 100%;
-    padding: 0.6em;
-    font-size: 1em;
-    background: transparent;
-    border: 1px solid #FFFFFF;
-    border-radius: 4px;
-    color: #FFFFFF;
-    box-sizing: border-box;
-    font-family: 'Lustria', serif;
-  }
-  input::placeholder {
-    color: #CCCCCC;
-    font-family: 'Lustria', serif;
-  }
-  button {
-    width: 100%;
-    padding: 0.8em;
-    margin-top: 1.5em;
-    font-size: 1em;
-    background: #FFFFFF;
-    color: #151011;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Lustria', serif;
-  }
-  button:hover {
-    opacity: 0.9;
-  }
-</style>
+    /* 2. Styles généraux */
+    body {
+      margin: 0;
+      padding: 2em;
+      background: #151011;
+      color: #FFFFFF;
+      font-family: 'Lustria', serif;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
+    /* Logo centré */
+    .logo {
+      display: block;
+      margin: 0 auto 2em;
+      max-width: 200px;
+    }
 
+    /* Titres en Tan Pearl */
+    h2 {
+      font-family: 'Tan Pearl', serif;
+      margin-top: 1.5em;
+      font-size: 1.3em;
+      color: #FFFFFF;
+    }
+
+    /* Champs et placeholders */
+    input {
+      width: 100%;
+      padding: 0.6em;
+      font-size: 1em;
+      background: transparent;
+      border: 1px solid #FFFFFF;
+      border-radius: 4px;
+      color: #FFFFFF;
+      box-sizing: border-box;
+      font-family: 'Lustria', serif;
+    }
+    input::placeholder {
+      color: #CCCCCC;
+      font-family: 'Lustria', serif;
+    }
+
+    /* Bouton */
+    button {
+      width: 100%;
+      padding: 0.8em;
+      margin-top: 1.5em;
+      font-size: 1em;
+      background: #FFFFFF;
+      color: #151011;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Lustria', serif;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
 </head>
+
 <body>
 
+  <!-- Logo -->
   <img src="logo.png" alt="TIRA VTC" class="logo"/>
 
+  <!-- Formulaire d’adresses -->
   <h2>Adresse de prise en charge</h2>
   <input id="pickup" placeholder="Commencez à taper…" />
 
@@ -106,11 +105,14 @@
 
   <button id="next">Continuer vers le formulaire →</button>
 
+  <!-- JS d’Algolia Places -->
   <script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
   <script>
+    // ← Remplace par tes vraies clés Algolia Places
     const APP_ID  = 'PO5E8993LI';
     const API_KEY = '76f71fc5be8e3b4d10e5a7c3500d1d2f';
 
+    // Initialisation des deux autocomplétions
     const ac1 = places({
       appId: APP_ID,
       apiKey: API_KEY,
@@ -128,6 +130,7 @@
       countries: ['fr']
     });
 
+    // Redirection vers Tally avec paramètres
     document.getElementById('next').onclick = () => {
       const p = ac1.getVal(), d = ac2.getVal();
       if (!p || !d) {
@@ -138,5 +141,6 @@
       window.location.href = base + params;
     };
   </script>
+
 </body>
 </html>
